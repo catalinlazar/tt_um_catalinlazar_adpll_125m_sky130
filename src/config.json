@@ -2,8 +2,7 @@
   "DESIGN_NAME": "tt_um_catalinlazar_adpll_125m_sky130",
   "VERILOG_FILES": [
     "dir::tt_um_catalinlazar_adpll_125m_sky130.v",
-    "dir::sync_divider.v",
-    "$PDK_ROOT/sky130A/libs.ref/sky130_fd_sc_hd/verilog/sky130_fd_sc_hd.v"
+    "dir::sync_divider.v"
   ],
   "PL_TARGET_DENSITY_PCT": 45,
   "CLOCK_PERIOD": 20,
