@@ -1,17 +1,22 @@
 {
-  "PL_TARGET_DENSITY_PCT": 40,
+  "DESIGN_NAME": "tt_um_catalinlazar_adpll_125m_sky130",
+  "VERILOG_FILES": [
+    "dir::tt_um_catalinlazar_adpll_125m_sky130.v",
+    "dir::sync_divider.v",
+    "$PDK_ROOT/sky130A/libs.ref/sky130_fd_sc_hd/verilog/sky130_fd_sc_hd.v"
+  ],
+  "PL_TARGET_DENSITY_PCT": 45,
   "CLOCK_PERIOD": 20,
-  "PL_RESIZER_HOLD_SLACK_MARGIN": 0.1,
-  "GRT_RESIZER_HOLD_SLACK_MARGIN": 0.05,
+  "CLOCK_PORT": "clk",
+  "CLOCK_NET": "clk",
   "RUN_LINTER": 1,
   "LINTER_INCLUDE_PDK_MODELS": 1,
-  "CLOCK_PORT": "clk",
-  
-  "//": "CRITICAL: Stop OpenLane from optimizing away our structural DCO inverter chain",
   "PL_RESIZER_DESIGN_OPTIMIZATIONS": 0,
-  "PL_RESIZER_TIMING_OPTIMIZATIONS": 1,
+  "PL_RESIZER_TIMING_OPTIMIZATIONS": 0,
+  "PL_RESIZER_BUFFER_INPUT_PORTS": 0,
+  "PL_RESIZER_BUFFER_OUTPUT_PORTS": 0,
+  "DIODE_INSERTION_STRATEGY": 0,
   "DPL_CELL_PADDING": 0,
-
   "RUN_KLAYOUT_XOR": 0,
   "RUN_KLAYOUT_DRC": 0,
   "DESIGN_REPAIR_BUFFER_OUTPUT_PORTS": 0,
@@ -24,8 +29,7 @@
   "FP_IO_HLENGTH": 2,
   "FP_IO_VLENGTH": 2,
   "FP_PDN_VPITCH": 38.87,
-  "RUN_CTS": 1,
+  "RUN_CTS": 0,
   "FP_PDN_MULTILAYER": 0,
-  "MAGIC_DEF_LABELS": 0,
-  "MAGIC_WRITE_LEF_PINONLY": 1
+  "MAGIC_DEF_LABELS": 0
 }

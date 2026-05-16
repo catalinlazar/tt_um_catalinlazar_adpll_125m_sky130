@@ -2,7 +2,6 @@
 `timescale 1ns / 1ps
 
 module tb ();
-
   reg proto_clk = 0;
   always #10 proto_clk = ~proto_clk;
 
@@ -30,5 +29,4 @@ module tb ();
       .clk    (proto_clk),
       .rst_n  (rst_n)    
   );
-
 endmodule
