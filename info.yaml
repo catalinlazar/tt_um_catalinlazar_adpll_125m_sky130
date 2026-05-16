@@ -1,4 +1,4 @@
-yaml_version: "4"
+yaml_version: 6
 
 project:
   title: "127-stage Coarse-Tapped ADPLL"
@@ -8,14 +8,14 @@ project:
   version: "1.0"
   license: "Apache-2.0"
   language: "Verilog"
-  tiles: "1x1"          # Maps the footprint size on the shared wafer
-  clock_hz: 50000000    # Tells the engine our base system reference is 50MHz
+  tiles: "1x1"
+  clock_hz: 50000000
 
-top_module: "tt_um_catalinlazar_adpll_125m_sky130"
-
-source_files:
-  - "tt_um_catalinlazar_adpll_125m_sky130.v"
-  - "sync_divider.v"
+  # In version 6, these must be nested INSIDE the project block
+  top_module: "tt_um_catalinlazar_adpll_125m_sky130"
+  source_files:
+    - "tt_um_catalinlazar_adpll_125m_sky130.v"
+    - "sync_divider.v"
 
 pinout:
   ui[0]: "ref_clk"
