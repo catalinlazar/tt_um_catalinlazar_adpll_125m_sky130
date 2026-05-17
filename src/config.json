@@ -9,32 +9,44 @@
   "FP_DEF_TEMPLATE": "dir::../tt/tech/sky130A/def/tt_block_1x1_pg.def",
   "VDD_PIN": "VPWR",
   "GND_PIN": "VGND",
+  
+  "//": "--- Strict Routing Layer Limits to suppress met5/PDN generation errors ---",
   "RT_MAX_LAYER": "met4",
-  "PL_TARGET_DENSITY": 0.35,
-  "RUN_CTS": false,
-
-  "//": "--- Macro Protection to prevent met5/PDN generation errors ---",
-  "DESIGN_IS_CORE": false,
+  "FP_PDN_HORIZONTAL_LAYER": "met4",
+  "FP_PDN_VERTICAL_LAYER": "met4",
+  "FP_PDN_UPPER_LAYER": "met4",
+  "FP_PDN_LOWER_LAYER": "met4",
   "FP_PDN_MULTILAYER": false,
   "FP_PDN_CORE_RING": false,
 
-  "//": "--- Optimization fixes to prevent OpenLane loops & hangs ---",
+  "//": "--- Structural Chain Optimization Protection (Preserves DCO Inverters) ---",
   "PL_RESIZER_DESIGN_OPTIMIZATIONS": 0,
   "PL_RESIZER_TIMING_OPTIMIZATIONS": 0,
-  "GLB_RESIZER_TIMING_OPTIMIZATIONS": 0,
-  "CELL_PAD": 1,
+  "PL_RESIZER_BUFFER_INPUT_PORTS": 0,
+  "PL_RESIZER_BUFFER_OUTPUT_PORTS": 0,
+  "DESIGN_REPAIR_BUFFER_OUTPUT_PORTS": 0,
   "DPL_CELL_PADDING": 0,
 
-  "//": "--- Decoupling Capacitor and Filler Configuration ---",
-  "ADD_FILL_CELLS": true,
-  "DECAP_CELL": [
-    "sky130_fd_sc_hd__decap_3",
-    "sky130_fd_sc_hd__decap_4",
-    "sky130_fd_sc_hd__decap_6",
-    "sky130_fd_sc_hd__decap_8"
-  ],
-  "FILL_CELL": [
-    "sky130_fd_sc_hd__fill_1",
-    "sky130_fd_sc_hd__fill_2"
-  ]
+  "//": "--- Clock and Timing Configuration ---",
+  "CLOCK_PERIOD": 20,
+  "CLOCK_PORT": "clk",
+  "CLOCK_NET": "clk",
+  "RUN_CTS": true,
+
+  "//": "--- Placement & Margins ---",
+  "PL_TARGET_DENSITY_PCT": 45,
+  "GRT_ALLOW_CONGESTION": 1,
+  "TOP_MARGIN_MULT": 1,
+  "BOTTOM_MARGIN_MULT": 1,
+  "LEFT_MARGIN_MULT": 6,
+  "RIGHT_MARGIN_MULT": 6,
+  "FP_IO_HLENGTH": 2,
+  "FP_IO_VLENGTH": 2,
+
+  "//": "--- Validations ---",
+  "RUN_LINTER": 1,
+  "LINTER_INCLUDE_PDK_MODELS": 1,
+  "RUN_KLAYOUT_XOR": 0,
+  "RUN_KLAYOUT_DRC": 0,
+  "MAGIC_DEF_LABELS": 0
 }
