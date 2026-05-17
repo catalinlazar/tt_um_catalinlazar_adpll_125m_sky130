@@ -10,7 +10,7 @@ module tt_um_catalinlazar_adpll_125m_sky130 (
     output wire [7:0] uio_out,  // IOs: Output path (Unused)
     output wire [7:0] uio_oe,   // IOs: Enable path (Unused)
     input  wire       ena,      // always 1 when the design is powered
-    input  wire       clk,      // System clock (Unused by structural DCO)
+    input  wire       clk,      // System clock (Unused by DCO loop, physically anchored)
     input  wire       rst_n     // reset_n - low to reset divider
 );
 
@@ -32,6 +32,19 @@ module tt_um_catalinlazar_adpll_125m_sky130 (
     assign uo_out[0]     = raw_dco_clk;
     assign uo_out[1]     = clk_out;
     assign uo_out[7:2]   = 6'b000000;
+
+    // =========================================================================
+    // PHYSICAL PIN ANCHOR
+    // Instantiate an isolated dummy buffer cell inside the core matrix.
+    // This forces OpenROAD to preserve the net and pull the 'clk' routing trace
+    // cleanly inside the design die area, preventing floorplan crashes.
+    // =========================================================================
+    wire clk_buffered;
+    
+    sky130_fd_sc_hd__inv_1 U_clk_anchor (
+        .Y(clk_buffered),
+        .A(clk)
+    );
 
     // =========================================================================
     // STRUCTURAL HARDWARE: Self-Oscillating Digitally Controlled Ring Loop
