@@ -1,38 +1,44 @@
-// Example for the inverter cell
+`timescale 1ns/1ps
+`default_nettype none
+
+// 1. Gated Control Primitive Inverter Cell
 module sky130_fd_sc_hd__inv_1 (
-    output Y,
-    input A,
-    input VPWR,
-    input VGND,
-    input VPB,
-    input VNB
+    output wire Y,
+    input  wire A,
+    input  wire VPWR,
+    input  wire VGND,
+    input  wire VPB,
+    input  wire VNB
 );
-    assign Y = ~A;
+    // 100ps propagation delay to allow time progression in ring structures
+    assign #0.1 Y = ~A;
 endmodule
 
-// Example for the NAND cell (adjust if your module name differs)
+// 2. Gated Control Primitive NAND Gate
 module sky130_fd_sc_hd__nand2_1 (
-    output Y,
-    input A,
-    input B,
-    input VPWR,
-    input VGND,
-    input VPB,
-    input VNB
+    output wire Y,
+    input  wire A,
+    input  wire B,
+    input  wire VPWR,
+    input  wire VGND,
+    input  wire VPB,
+    input  wire VNB
 );
-    assign Y = ~(A & B);
+    // 100ps propagation delay to prevent simulator lock-up on feedback loop enable
+    assign #0.1 Y = ~(A & B);
 endmodule
 
-// Example for the MUX cell used by U_tap_mux
+// 3. Dynamic Structural Tap Selector MUX Cell (U_tap_mux)
 module sky130_fd_sc_hd__mux2_1 (
-    output X,
-    input A0,
-    input A1,
-    input S,
-    input VPWR,
-    input VGND,
-    input VPB,
-    input VNB
+    output wire X,
+    input  wire A0,
+    input  wire A1,
+    input  wire S,
+    input  wire VPWR,
+    input  wire VGND,
+    input  wire VPB,
+    input  wire VNB
 );
-    assign X = S ? A1 : A0;
+    // 100ps propagation delay ensures switching between taps advances time cleanly
+    assign #0.1 X = S ? A1 : A0;
 endmodule

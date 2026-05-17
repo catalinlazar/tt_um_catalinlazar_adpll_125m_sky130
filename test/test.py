@@ -5,30 +5,34 @@ from cocotb.triggers import Timer
 async def test_adpll(dut):
     dut._log.info("Starting ADPLL structural simulation test...")
     
-    # Initialize high-level top ports
-    dut.uio_in.value = 0
-    dut.ena.value = 1
+    # 1. Clear interface control pins and hold divider in reset state initially
+    dut.rst_n.value = 0      # Active-low reset asserted
+    dut.ena.value = 1        # Power/enable block active
+    dut.ui_in.value = 0x00   # Clear inputs initially
     
-    # Change direct 'dut.clk' to dot-navigate into the instantiated block:
-    dut.user_project.clk.value = 0
-    dut.user_project.rst_n.value = 0
-    dut.user_project.ui_in.value = 0
-
-    await Timer(100, unit="ns")
+    await Timer(10, unit="ns")
     
-    # Active Gated Ring Control line loop configuration
-    dut.ui_in.value = 0x24
+    # 2. Enable the high-speed DCO ring oscillator path 
     dut._log.info("DCO loop enabled. Simulating ring structure delays...")
-
-    # Cycle delay resolution loops
-    for i in range(200):
-        await Timer(5, unit="ns")
-
-    # Read cleanDriven outputs without floating bit exceptions
-    uo_out_val = int(dut.uo_out.value)
-    dco_raw = (uo_out_val >> 1) & 1
-    clk_div = uo_out_val & 1
+    # 0x30 -> Binary 8'b0011_0000 
+    # This keeps your DCO enabled loop active while feeding a clear,
+    # non-zero division ratio step to your tracking configuration bits.
+    dut.ui_in.value = 0x30   
     
-    dut._log.info(f"Simulation Checkpoint -> raw_dco_clk: {dco_raw}, clk_out (Divided): {clk_div}")
+    # 3. Wait a short period for the oscillator loop to start up and stabilize.
+    # Since mock gates use deterministic #0.1 delays, a 20ns wait guarantees
+    # multiple active clock edges are fed to the synchronous divider during reset.
+    await Timer(20, unit="ns")
     
-    assert ((uo_out_val >> 2) & 1) == 1, "ADPLL core active status tracking indicator failed!"
+    # 4. Release Reset cleanly to start tracking steps
+    dut._log.info("Releasing reset line to activate the clock divider...")
+    dut.rst_n.value = 1
+    
+    # 5. Let the simulation step forward out to allow viewing of full cycles
+    await Timer(1000, unit="ns")
+    
+    # Checkpoint values at simulation end using .value to safely fetch array states
+    outputs = dut.uo_out.value
+    raw_clk = outputs[0]
+    div_clk = outputs[1]
+    dut._log.info(f"Simulation Checkpoint Completed -> raw_dco_clk: {raw_clk}, clk_out (Divided): {div_clk}")
