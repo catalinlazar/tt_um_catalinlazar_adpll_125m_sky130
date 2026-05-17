@@ -19,6 +19,9 @@ module tt_um_catalinlazar_adpll_125m_sky130 (
     assign uio_out = 8'b00000000;
     assign uio_oe  = 8'b00000000;
 
+    // Tie off unused high outputs to prevent floating/un-driven netlist errors
+    assign uo_out[7:3] = 5'b00000;
+
     // Status Tracking Signal
     assign uo_out[2] = ena;
 
@@ -73,7 +76,7 @@ module tt_um_catalinlazar_adpll_125m_sky130 (
     sync_divider U_divider_0 (
         .clk_in(raw_dco_clk),
         .rst_n(rst_n),
-        .div_sel(ui_in[1:0]),
+        .div_ratio({3'b000, ui_in[1:0]}), // Corrected name and explicit 5-bit padding
         .clk_out(uo_out[0])
     );
 
