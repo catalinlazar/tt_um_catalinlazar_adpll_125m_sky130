@@ -2,6 +2,7 @@
 
 /* verilator lint_off UNUSEDSIGNAL */
 /* verilator lint_off PINMISSING */
+
 module tt_um_catalinlazar_adpll_125m_sky130 (
     input  wire [7:0] ui_in,    // Dedicated inputs - [5]: loop enable, [4:0]: div ratio config
     output wire [7:0] uo_out,   // Dedicated outputs - [0]: raw clock, [1]: divided clock
@@ -12,8 +13,6 @@ module tt_um_catalinlazar_adpll_125m_sky130 (
     input  wire       clk,      // System clock (Unused by structural DCO)
     input  wire       rst_n     // reset_n - low to reset divider
 );
-/* verilator lint_on PINMISSING */
-/* verilator lint_on UNUSEDSIGNAL */
 
     // Internal structural routing connections
     wire loop_enabled;
@@ -78,3 +77,6 @@ module tt_um_catalinlazar_adpll_125m_sky130 (
     );
 
 endmodule
+
+/* verilator lint_on PINMISSING */
+/* verilator lint_on UNUSEDSIGNAL */
