@@ -1,13 +1,28 @@
+# OS specific files
 .DS_Store
-.idea
+Thumbs.db
+
+# IDEs and editors
+.idea/
+.vscode/
+*.swp
+
+# Python environment and cache
+.venv/
+venv/
+**/__pycache__/
+*.pyc
+
+# Simulation artifacts and waveforms
 *.vcd
 *.fst
 *.fst.hier
-runs
-tt_submission
+test/sim_build/
+test/results.xml
+
+# Tiny Tapeout / OpenLane build outputs
+runs/
+tt_submission/
 src/user_config.json
 src/config_merged.json
-test/sim_build
-test/__pycache__/
-test/results.xml
 test/gate_level_netlist.v

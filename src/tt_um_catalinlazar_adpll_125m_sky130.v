@@ -36,7 +36,7 @@ module tt_um_catalinlazar_adpll_125m_sky130 (
                 .Y(loop[i])
             );
         end
-    </generate>
+    endgenerate
 
     wire raw_dco_clk;
     sky130_fd_sc_hd__mux2_1 U_tap_mux (
