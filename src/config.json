@@ -32,6 +32,9 @@
   "FP_PDN_VPITCH": 38.87,
   "FP_PDN_MULTILAYER": 0,
 
+  "TAP_DECAP_INSERTION": 1,
+  "DECAP_CELL": "sky130_fd_sc_hd__decap_*",
+
   "RUN_CTS": 1,
 
   "RUN_KLAYOUT_XOR": 0,
