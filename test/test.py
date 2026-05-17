@@ -28,8 +28,9 @@ async def test_adpll(dut):
     dut._log.info("Releasing reset line to activate the clock divider...")
     dut.rst_n.value = 1
     
-    # 5. Let the simulation step forward out to allow viewing of full cycles
-    await Timer(1000, unit="ns")
+    # 5. Let the simulation step forward out to 1ms total
+    # to guarantee clean viewing of multiple full cycles of the divided output
+    await Timer(1, unit="ms")
     
     # Checkpoint values at simulation end using .value to safely fetch array states
     outputs = dut.uo_out.value
